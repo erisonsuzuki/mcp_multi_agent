@@ -11,7 +11,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the rest of the application code into the container
-# The `aula 4/mcp` directory will be copied into `/app/mcp`
+# The `mcp` directory will be copied into `/app/mcp`
 COPY . .
 
 # Set environment variables for API keys (replace with your actual env vars if different)

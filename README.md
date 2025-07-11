@@ -1,12 +1,11 @@
 # Master Control Program (MCP)
 
-This directory contains the implementation of the Master Control Program (MCP) based on the architectural design outlined in [`aula 4/mcp_architecture.md`](aula 4/mcp_architecture.md). The MCP is designed to act as an orchestrator, breaking down user prompts into actionable tasks and delegating them to specialized agents (Roo Modes) using LangChain.
+This directory contains the implementation of the Master Control Program (MCP) based on the architectural design outlined in [`mcp_architecture.md`](aula%204/mcp_architecture.md). The MCP is designed to act as an orchestrator, breaking down user prompts into actionable tasks and delegating them to specialized agents (Roo Modes) using LangChain.
 
 ## Project Structure
 
 ```
-aula 4/
-└── mcp/
+mcp/
     ├── __init__.py
     ├── core/
     │   ├── __init__.py
@@ -59,7 +58,7 @@ The MCP is designed to be integrated into the 'roo code' VS Code extension envir
 To see the MCP in action, you can run the `orchestration_engine.py` script directly:
 
 ```bash
-python aula 4/mcp/core/orchestration_engine.py
+python mcp/core/orchestration_engine.py
 ```
 
 Alternatively, you can run it using Docker for a consistent environment.
@@ -68,7 +67,7 @@ Alternatively, you can run it using Docker for a consistent environment.
 
 1.  **Build the Docker image**: Navigate to the `aula 4/mcp/` directory in your terminal and build the image.
     ```bash
-    cd aula 4/mcp/
+    cd mcp/
     docker build -t mcp-orchestrator .
     ```
 2.  **Run the Docker container**:
@@ -129,7 +128,7 @@ Here's a conceptual outline for adapting this project to a local Stdio server:
     *   If a Python version of `@modelcontextprotocol/sdk` exists, you would install it. Otherwise, you'd need to implement the Stdio transport logic manually (reading from stdin, writing to stdout).
 
 2.  **Create a Server Entry Point**:
-    *   Create a new Python script (e.g., `aula 4/mcp/server.py`) that initializes the MCP components and exposes their functionalities as tools.
+    *   Create a new Python script (e.g., `mcp/server.py`) that initializes the MCP components and exposes their functionalities as tools.
 
 3.  **Define Tools**:
     *   Use the MCP SDK's `Tool` or a custom mechanism to define the MCP's capabilities (e.g., `ingest_prompt`, `decompose_task`, `route_task`, `execute_plan`) as callable functions.
@@ -161,17 +160,17 @@ Here's a conceptual outline of how this could be achieved:
 **Example Conceptual `main.py` (using FastAPI):**
 
 ```python
-# aula 4/mcp/main.py (Conceptual)
+# mcp/main.py (Conceptual)
 from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import List, Dict, Any
 
-from aula 4.mcp.core.prompt_ingestion import PromptIngestion
-from aula 4.mcp.core.task_decomposition import TaskDecomposition
-from aula 4.mcp.core.agent_router import AgentRouter, get_available_roo_modes
-from aula 4.mcp.core.orchestration_engine import OrchestrationEngine
-from aula 4.mcp.config.settings import MCPSettings
-from aula 4.mcp.config.llm_config import LLMConfig
+from mcp.core.prompt_ingestion import PromptIngestion
+from mcp.core.task_decomposition import TaskDecomposition
+from mcp.core.agent_router import AgentRouter, get_available_roo_modes
+from mcp.core.orchestration_engine import OrchestrationEngine
+from mcp.config.settings import MCPSettings
+from mcp.config.llm_config import LLMConfig
 
 app = FastAPI()
 
@@ -231,7 +230,7 @@ async def get_mcp_tools():
     }
 
 # To run this conceptual server (after installing fastapi and uvicorn):
-# uvicorn aula 4.mcp.main:app --host 0.0.0.0 --port 8000
+# uvicorn mcp.main:app --host 0.0.0.0 --port 8000
 ```
 
 ## Configuring Roo Code to use the MCP Server
@@ -270,7 +269,7 @@ To enable Roo Code to connect to the local MCP server you just created, you need
             },
             "roo-mcp-server": {
                 "command": "node",
-                "args": ["/home/sony/www/ia/aula 4/mcp/server/build/index.js"],
+                "args": ["/home/sony/www/ia/mcp/server/build/index.js"],
                 "disabled": false,
                 "alwaysAllow": [],
                 "disabledTools": []
@@ -280,7 +279,7 @@ To enable Roo Code to connect to the local MCP server you just created, you need
     ```
     *   **Justification**: This configuration tells Roo Code how to start and communicate with your local MCP server.
         *   `"command": "node"`: Specifies that the server should be run using Node.js.
-        *   `"args": ["/home/sony/www/ia/aula 4/mcp/server/build/index.js"]`: Provides the full path to the compiled JavaScript entry point of your MCP server.
+        *   `"args": ["/home/sony/www/ia/mcp/server/build/index.js"]`: Provides the full path to the compiled JavaScript entry point of your MCP server.
         *   `"disabled": false`: Ensures the server is active and enabled.
         *   `"alwaysAllow": []` and `"disabledTools": []`: These are default settings, indicating no tools are always allowed without confirmation and no tools are explicitly disabled.
 

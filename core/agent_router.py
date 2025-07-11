@@ -3,7 +3,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.agents import AgentExecutor, create_tool_calling_agent
 from langchain.prompts import ChatPromptTemplate
 import json
-from aula 4.mcp.config.settings import MCPSettings
+from mcp.config.settings import MCPSettings
 
 # Placeholder for getting available Roo Modes.
 # In a real scenario, this would dynamically discover modes from the VS Code environment or a config file.

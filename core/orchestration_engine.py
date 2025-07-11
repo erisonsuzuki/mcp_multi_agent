@@ -5,9 +5,9 @@ from langchain.memory import ConversationBufferMemory
 from langchain_google_genai import ChatGoogleGenerativeAI # Import here for dynamic model loading
 import json
 
-from aula 4.mcp.config.settings import MCPSettings
-from aula 4.mcp.config.llm_config import LLMConfig # Import LLMConfig
-from aula 4.mcp.core.agent_router import get_available_roo_modes, AgentRouter
+from mcp.config.settings import MCPSettings
+from mcp.config.llm_config import LLMConfig # Import LLMConfig
+from mcp.core.agent_router import get_available_roo_modes, AgentRouter
 
 # Custom Tool for `switch_mode`
 # In a real VS Code extension, this would trigger the actual VS Code command.

@@ -1,7 +1,7 @@
 from langchain.prompts import PromptTemplate
 from langchain.chains import LLMChain
 from langchain_google_genai import ChatGoogleGenerativeAI
-from aula 4.mcp.config.llm_config import LLMConfig # Import LLMConfig
+from mcp.config.llm_config import LLMConfig # Import LLMConfig
 
 class PromptIngestion:
     def __init__(self, llm_type: str = "Gemini"): # Use LLM type for initialization
