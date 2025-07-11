@@ -4,8 +4,10 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from mcp.config.llm_config import LLMConfig # Import LLMConfig
 
 class PromptIngestion:
-    def __init__(self, llm_type: str = "Gemini"): # Use LLM type for initialization
-        self.llm = ChatGoogleGenerativeAI(model=LLMConfig.get_llm_model_name(llm_type))
+    def __init__(self):
+        # Load default LLM type from MCPSettings
+        llm_type = MCPSettings.get_default_llm_type()
+        self.llm = ChatGoogleGenerativeAI(model=LLMConfig.get_llm_model_name(lllm_type))
         self.prompt_template = PromptTemplate(
             input_variables=["prompt"],
             template="""
@@ -70,7 +72,7 @@ class PromptIngestion:
 
 if __name__ == "__main__":
     # Example Usage
-    ingestor = PromptIngestion()
+    ingestor = PromptIngestion() # No need to pass llm_type anymore
     test_prompt_1 = "Create a new HTML file called 'index.html' with a basic structure."
     result_1 = ingestor.ingest_prompt(test_prompt_1)
     print(f"Result 1: {result_1}")

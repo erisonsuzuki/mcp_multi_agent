@@ -34,8 +34,9 @@ switch_mode_tool = Tool(
 )
 
 class OrchestrationEngine:
-    def __init__(self, default_llm_type: str = "Gemini"): # Use LLM type for initialization
-        self.default_llm_type = default_llm_type
+    def __init__(self):
+        # Load default LLM type from MCPSettings
+        default_llm_type = MCPSettings.get_default_llm_type()
         self.llm = ChatGoogleGenerativeAI(model=LLMConfig.get_llm_model_name(default_llm_type), temperature=0.2)
         self.memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
         self.agent_router = AgentRouter(llm_model_name=LLMConfig.get_llm_model_name(default_llm_type)) # Initialize AgentRouter with default LLM
@@ -146,7 +147,7 @@ class OrchestrationEngine:
         return final_results
 
 if __name__ == "__main__":
-    orchestrator = OrchestrationEngine()
+    orchestrator = OrchestrationEngine() # No need to pass default_llm_type anymore
 
     # Example plan (list of tasks)
     example_tasks = [
