@@ -1,0 +1,11 @@
+{
+  "mcp_servers": [
+    {
+      "name": "roo_mcp_server",
+      "type": "local",
+      "description": "MCP server for Roo's internal tools and resources.",
+      "tools": [],
+      "resources": []
+    }
+  ]
+}
